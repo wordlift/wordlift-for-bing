@@ -35,7 +35,7 @@ class Wordlift_For_Bing {
 	 *
 	 * @since    1.0.0
 	 * @access   protected
-	 * @var      Wordlift_For_Bing_Loader    $loader    Maintains and registers all hooks for the plugin.
+	 * @var      Wordlift_For_Bing_Loader $loader Maintains and registers all hooks for the plugin.
 	 */
 	protected $loader;
 
@@ -44,7 +44,7 @@ class Wordlift_For_Bing {
 	 *
 	 * @since    1.0.0
 	 * @access   protected
-	 * @var      string    $plugin_name    The string used to uniquely identify this plugin.
+	 * @var      string $plugin_name The string used to uniquely identify this plugin.
 	 */
 	protected $plugin_name;
 
@@ -53,7 +53,7 @@ class Wordlift_For_Bing {
 	 *
 	 * @since    1.0.0
 	 * @access   protected
-	 * @var      string    $version    The current version of the plugin.
+	 * @var      string $version The current version of the plugin.
 	 */
 	protected $version;
 
@@ -158,8 +158,8 @@ class Wordlift_For_Bing {
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
 		$this->loader->add_action( 'add_meta_boxes_post', $plugin_admin, 'add_meta_boxes_post' );
 		$this->loader->add_action( 'admin_init', $plugin_admin, 'settings_api_init' );
-		$this->loader->add_action( 'publish_post', $plugin_admin, 'publishing_post');
-		$this->loader->add_action( 'publish_future_post', $plugin_admin, 'publishing_post');
+		$this->loader->add_action( 'publish_post', $plugin_admin, 'publishing_post' );
+		$this->loader->add_action( 'publish_future_post', $plugin_admin, 'publishing_post' );
 
 	}
 
