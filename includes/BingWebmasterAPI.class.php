@@ -35,13 +35,27 @@ class Bing_Webmaster_API {
 		$api_params,
 		$api_url;
 
-	public function __construct($api_key) {
+	/**
+	 * Bing_Webmaster_API constructor.
+	 *
+	 * @param string $api_key
+	 * @param string $api_base
+	 */
+	public function __construct($api_key, $api_base = 'https://ssl.bing.com/webmaster/api.svc/json/') {
 
 		$this->api_key = $api_key;
-		$this->api_base = 'https://ssl.bing.com/webmaster/api.svc/json/';
+		$this->api_base = $api_base;
 
 	}
 
+	/**
+	 * Set a get method from the list at https://docs.microsoft.com/en-us/previous-versions/bing/webmaster-api/jj572365(v%3dtechnet.10)
+	 *
+	 * @param string $method
+	 *
+	 * @return $this
+	 * @throws Exception
+	 */
 	public function get($method) {
 
 		$this->api_action = 'GET';
@@ -50,6 +64,14 @@ class Bing_Webmaster_API {
 
 	}
 
+	/**
+	 * Set a post method from the list at https://docs.microsoft.com/en-us/previous-versions/bing/webmaster-api/jj572365(v%3dtechnet.10)
+	 *
+	 * @param string $method
+	 *
+	 * @return $this
+	 * @throws Exception
+	 */
 	public function post($method) {
 
 		$this->api_action = 'POST';
@@ -58,6 +80,13 @@ class Bing_Webmaster_API {
 
 	}
 
+	/**
+	 * Function to sanitize and validate the passed method
+	 *
+	 * @param string $method
+	 *
+	 * @throws Exception
+	 */
 	private function set_method($method) {
 
 		$method = trim($method);
@@ -70,6 +99,14 @@ class Bing_Webmaster_API {
 		$this->api_url = $this->api_base . $this->api_method . '?apiKey=' . $this->api_key;
 	}
 
+	/**
+	 * Set params respective to the selected method
+	 *
+	 * @param array $params
+	 *
+	 * @return $this
+	 * @throws Exception
+	 */
 	public function params($params = array()) {
 
 		if($params && !is_array($params)){
@@ -81,6 +118,12 @@ class Bing_Webmaster_API {
 
 	}
 
+	/**
+	 * Performs the chained action
+	 *
+	 * @return object|string
+	 * @throws Exception
+	 */
 	public function perform() {
 
 		$curlopt = array(

@@ -107,6 +107,11 @@ class Wordlift_For_Bing_Admin {
 
 	}
 
+	/**
+	 * Add the meta box to UI
+	 *
+	 * @since    1.0.0
+	 */
 	public function add_meta_boxes_post( $post ) {
 
 		add_meta_box(
@@ -120,6 +125,12 @@ class Wordlift_For_Bing_Admin {
 
 	}
 
+	/**
+	 * Settings API handler.
+	 * Adds setting section, fields and registers settings
+	 *
+	 * @since    1.0.0
+	 */
 	public function settings_api_init() {
 
 		add_settings_section(
@@ -156,20 +167,27 @@ class Wordlift_For_Bing_Admin {
 
 	}
 
+	/**
+	 * Submit URL to Bing on post
+	 *
+	 * @param $post_id
+	 *
+	 * @since    1.0.0
+	 */
 	public function publishing_post($post_id) {
-		$post = get_post( $post_id );
-		$api_key = trim(get_option('wl-bing-api-key'));
-		if(
-			$post->post_modified == $post->post_date &&
-			!empty($api_key) &&
-			get_option( 'wl-bing-post-enabled' ) == 1 &&
-			get_option( 'blog_public' ) == 1
-		) {
-			$wordlift_bing_core = new Wordlift_For_Bing_Core();
-			$wordlift_bing_core->submit_url();
-		}
+
+		$wordlift_bing_core = new Wordlift_For_Bing_Core();
+		$wordlift_bing_core->submit_url();
+
 	}
 
+	/**
+	 * Render callback for Meta box UI
+	 *
+	 * @param $post
+	 *
+	 * @since    1.0.0
+	 */
 	public function render_meta_box( $post ) {
 
 		$wordlift_bing_core = new Wordlift_For_Bing_Core();
@@ -232,6 +250,13 @@ HTML;
 		}
 	}
 
+	/**
+	 * Setting fields
+	 *
+	 * @param $args
+	 *
+	 * @since    1.0.0
+	 */
 	public function settings_input_text_field( $args ){
 		$option = get_option($args[0]);
 
