@@ -12,14 +12,14 @@
  * $bing_webmaster_api = new Bing_Webmaster_API('apikey');
  *
  * $response = $bing_webmaster_api
- *  ->set_request_data(
- *      'GET',
- *      'GetUrlInfo',
+ *  ->get('GetUrlInfo')
+ *  ->params(
  *      array(
  *          'siteUrl' => 'http://example.com/',
- *          'url' => 'http://example.com/path'
+ *          'url'     => 'http://example.com/path'
  *      )
- * )->perform();
+ *  )
+ *  ->perform();
  *
  */
 
