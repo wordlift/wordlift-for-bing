@@ -121,13 +121,16 @@ class Bing_Webmaster_API {
 	/**
 	 * Performs the chained action
 	 *
-	 * @return object|string
+	 * @param array $curlopt
+	 *
+	 * @return array|bool|mixed|object|string
 	 * @throws Exception
 	 */
-	public function perform() {
+	public function perform($curlopt = array(
+		CURLOPT_TIMEOUT => 30
+	)) {
 
-		$curlopt = array(
-			CURLOPT_TIMEOUT => 5,
+		$default_curlopt = array(
 			CURLOPT_RETURNTRANSFER => 1,
 			CURLOPT_FOLLOWLOCATION => 1,
 			CURLOPT_HTTPHEADER => array(
@@ -135,19 +138,16 @@ class Bing_Webmaster_API {
 			)
 		);
 
-		if($this->api_action === 'GET'){
+		$curlopt = array(CURLOPT_URL => $this->api_url) + $curlopt + $default_curlopt;
 
-			$curlopt[CURLOPT_URL] = $this->api_url;
-			if(!empty($this->api_params)){
-				$curlopt[CURLOPT_URL] .= '&' . http_build_query($this->api_params);
-			}
+		if($this->api_action === 'GET' && !empty($this->api_params)){
 
-		} elseif ($this->api_action === 'POST'){
+			$curlopt[CURLOPT_URL] .= '&' . http_build_query($this->api_params);
 
-			$curlopt[CURLOPT_URL] = $this->api_url;
-			if(!empty($this->api_params)){
-				$curlopt[CURLOPT_POSTFIELDS] = json_encode($this->api_params);
-			}
+
+		} elseif ($this->api_action === 'POST' && !empty($this->api_params)){
+
+			$curlopt[CURLOPT_POSTFIELDS] = json_encode($this->api_params);
 
 		}
 

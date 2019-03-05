@@ -21,6 +21,7 @@ class Wordlift_For_Bing_Core {
 		}
 		$this->submit_url = get_permalink();
 		$this->blog_public = get_option('blog_public');
+		$this->transient_slug = 'wordlift_for_bing_core_response_';
 		$this->load_dependencies();
 
 	}
@@ -149,9 +150,7 @@ class Wordlift_For_Bing_Core {
 	 */
 	public function get_response() {
 
-		$transient_slug = 'wordlift_for_bing_core_response_'.get_the_ID();
-
-		$wordlift_for_bing_core_response = get_transient( $transient_slug );
+		$wordlift_for_bing_core_response = get_transient( $this->transient_slug.get_the_ID() );
 
 		if ( false !== $wordlift_for_bing_core_response ) {
 			return Wordlift_For_Bing_Core::sanitize_response($wordlift_for_bing_core_response);
@@ -192,7 +191,7 @@ class Wordlift_For_Bing_Core {
 
 		$response = (object) array_merge((array) $get_url_info->d, (array) $get_url_traffic_info->d);
 
-		set_transient( $transient_slug, $response, 4 * HOUR_IN_SECONDS );
+		set_transient( $this->transient_slug.get_the_ID(), $response, 4 * HOUR_IN_SECONDS );
 		return Wordlift_For_Bing_Core::sanitize_response($response);
 
 	}
@@ -263,6 +262,7 @@ class Wordlift_For_Bing_Core {
 						'url'     => $this->submit_url
 					))
 					->perform();
+				delete_transient($this->transient_slug.get_the_ID());
 			} catch(Exception $e){
 				return new WP_Error( "bing-api-request", $e->getMessage() );
 			}
