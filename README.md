@@ -1,4 +1,4 @@
-<a href="https://wordlift.io"><img src="WordLift__logo--5.png"/></a>
+<a href="https://wordlift.io"><img src="https://github.com/insideout10/wordlift-plugin/raw/develop/WordLift__logo--5.png"/></a>
 
 WordLift for Bing
 =============================
